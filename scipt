@@ -1,0 +1,20 @@
+on run
+	tell application "BBEdit"
+		if documents is not {} then
+			set theFile to file of document 1
+			set appleScriptPath to theFile as text
+			set currentURL to ("file://" & appleScriptPath)
+			
+			tell application "MarsEdit"
+				if it is running then
+					make new document with properties {body:appleScriptPath}
+					activate
+				else
+					display dialog "MarsEdit is not running." buttons {"OK"} default button 1 with icon 2
+				end if
+			end tell
+		else
+			display dialog "No document is open in BBEdit." buttons {"OK"} default button 1 with icon 2
+		end if
+	end tell
+end run
